@@ -33,4 +33,4 @@ captures/
 
 # IDEA
 .idea/
-AndroidLog.iml
+*.iml
