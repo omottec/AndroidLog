@@ -1,4 +1,4 @@
-package com.omottec.androidlog;
+package com.omottec.android.log;
 
 import android.util.Log;
 
@@ -172,5 +172,9 @@ public final class Logger {
         if (elements != null && elements.length >= 2 && elements[1] != null)
             sb.append("|").append(elements[1].getMethodName());
         d(object.getClass().getSimpleName(), sb.toString());
+    }
+
+    public static void setLevel(int level) {
+        sLevel = level;
     }
 }
