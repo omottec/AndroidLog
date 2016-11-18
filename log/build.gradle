@@ -1,6 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
-apply plugin: "com.jfrog.bintray"
+apply plugin: 'com.jfrog.bintray'
 
 android {
     compileSdkVersion 25
@@ -32,18 +32,16 @@ dependencies {
     testCompile 'junit:junit:4.12'
 }
 
-def siteUrl = 'https://github.com/omottec/AndroidLog'
-def gitUrl = 'https://github.com/omottec/AndroidLog.git'
 group = "com.github.omottec"
 archivesBaseName = 'android-log'
-version = '0.0.05'
+version = '0.0.14'
 
 install {
     repositories.mavenInstaller {
         pom.project {
             name 'AndroidLog'
             description = 'A lib for android log'
-            url siteUrl
+            url WEB_SITE_URL
             inceptionYear '2016'
 
             packaging 'aar'
@@ -59,15 +57,15 @@ install {
             }
             developers {
                 developer {
-                    id 'omottec'
+                    id USER
                     name 'Daniel Bond'
-                    email 'omottec@gmail.com'
+                    email EMAIL
                 }
             }
             scm {
-                connection gitUrl
-                developerConnection gitUrl
-                url siteUrl
+                connection GIT_URL
+                developerConnection GIT_URL
+                url WEB_SITE_URL
             }
         }
     }
@@ -96,15 +94,34 @@ artifacts {
 }
 
 bintray {
-    user = bintrayUsername
-    key = bintrayApiKey
+    user = USER
+    key = BINTRAY_API_KEY
     configurations = ['archives']
     publish = true
     pkg {
         repo = "maven"
         name = "com.github.omottec:android-log"
-        websiteUrl = siteUrl
-        vcsUrl = gitUrl
+        websiteUrl = WEB_SITE_URL
+        vcsUrl = GIT_URL
+        issueTrackerUrl = "$WEB_SITE_URL/issues"
         licenses = ["Apache-2.0"]
+
+        version {
+            name = version
+            released = new Date()
+//            vcsTag = ''
+
+            gpg {
+                sign = true
+                passphrase = GPG_PASSPHRASE
+            }
+
+            mavenCentralSync {
+                sync = true
+                user = USER
+                password = MAVEN_CENTRAL_PWD
+                close = '1'
+            }
+        }
     }
 }
