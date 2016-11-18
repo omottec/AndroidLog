@@ -1,4 +1,4 @@
-package com.omottec.android.log;
+package com.github.omottec.android.log;
 
 import android.util.Log;
 
