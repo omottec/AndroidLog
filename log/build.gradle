@@ -1,9 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: "com.jfrog.bintray"
-//apply from: 'upload.gradle'
-
-version = '0.0.01'
 
 android {
     compileSdkVersion 25
@@ -38,46 +35,48 @@ dependencies {
 def siteUrl = 'https://github.com/omottec/AndroidLog'
 def gitUrl = 'https://github.com/omottec/AndroidLog.git'
 group = "com.github.omottec"
+archivesBaseName = 'android-log'
+version = '0.0.04'
 
 install {
     repositories.mavenInstaller {
-        // This generates POM.xml with proper parameters
-        pom {
-            project {
-                packaging 'aar'
+        pom.project {
+            name 'AndroidLog'
+            description = 'A lib for android log'
+            url siteUrl
+            inceptionYear '2016'
 
-                // Add your description here
-                name 'com.github.omottec:android-log'
-                description = 'android log lib'
+            packaging 'aar'
+            groupId 'com.github.omottec'
+            artifactId 'android-log'
+
+            licenses {
+                license {
+                    name 'The Apache Software License, Version 2.0'
+                    url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    distribution 'repo'
+                }
+            }
+            developers {
+                developer {
+                    id 'omottec'
+                    name 'Daniel Bond'
+                    email 'omottec@gmail.com'
+                }
+            }
+            scm {
+                connection gitUrl
+                developerConnection gitUrl
                 url siteUrl
-
-                // Set your license
-                licenses {
-                    license {
-                        name 'The Apache Software License, Version 2.0'
-                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                    }
-                }
-                developers {
-                    developer {
-                        id 'omottec'
-                        name 'Daniel Bond'
-                        email 'omottec@gmail.com'
-                    }
-                }
-                scm {
-                    connection gitUrl
-                    developerConnection gitUrl
-                    url siteUrl
-                }
             }
         }
     }
 }
 
 task sourcesJar(type: Jar) {
-    from android.sourceSets.main.java.srcDirs
+    baseName = archivesBaseName
     classifier = 'sources'
+    from android.sourceSets.main.java.srcDirs
 }
 
 task javadoc(type: Javadoc) {
@@ -86,6 +85,7 @@ task javadoc(type: Javadoc) {
 }
 
 task javadocJar(type: Jar, dependsOn: javadoc) {
+    baseName = archivesBaseName
     classifier = 'javadoc'
     from javadoc.destinationDir
 }
@@ -98,14 +98,13 @@ artifacts {
 bintray {
     user = bintrayUsername
     key = bintrayApiKey
-
     configurations = ['archives']
+    publish = true
     pkg {
         repo = "maven"
         name = "com.github.omottec:android-log"
         websiteUrl = siteUrl
         vcsUrl = gitUrl
         licenses = ["Apache-2.0"]
-        publish = true
     }
 }
