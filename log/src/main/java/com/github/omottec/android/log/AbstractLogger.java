@@ -13,14 +13,13 @@ import java.util.regex.Pattern;
  */
 
 public abstract class AbstractLogger {
-    private static final int MAX_LOG_LENGTH = 4000;
     private static final int CALL_STACK_INDEX = 3;
     private static final Pattern ANONYMOUS_CLASS = Pattern.compile("(\\$\\d+)+$");
     private static int sLevel = Integer.MAX_VALUE;
 
     private String mName;
 
-    protected AbstractLogger(String name) {
+    AbstractLogger(String name) {
         mName = name;
     }
 
