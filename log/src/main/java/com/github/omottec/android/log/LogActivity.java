@@ -3,6 +3,7 @@ package com.github.omottec.android.log;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,6 +17,9 @@ public class LogActivity extends FragmentActivity implements View.OnClickListene
     private TextView mLogOnTv;
     private TextView mLogOffTv;
     private TextView mLogTv;
+    private CatLogger mCatLogger = CatLogger.getLogger(null);
+    private FileLogger mFileLogger;
+    private int mClickCount;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -27,19 +31,25 @@ public class LogActivity extends FragmentActivity implements View.OnClickListene
         mLogOnTv.setOnClickListener(this);
         mLogOffTv.setOnClickListener(this);
         mLogTv.setOnClickListener(this);
+        mFileLogger = FileLogger.getLogger(this);
     }
 
     @Override
     public void onClick(View v) {
         int id = v.getId();
         if (R.id.log_on_tv == id) {
-            Logger.setLevel(Logger.VERBOSE);
+//            Logger.setLevel(Logger.VERBOSE);
+            AbstractLogger.setLogLevel(Log.VERBOSE);
             Toast.makeText(this, "log on", Toast.LENGTH_SHORT).show();
         } else if (R.id.log_off_tv == id) {
-            Logger.setLevel(Logger.NONE);
+//            Logger.setLevel(Logger.NONE);
+            AbstractLogger.setLogLevel(Integer.MAX_VALUE);
             Toast.makeText(this, "log off", Toast.LENGTH_LONG).show();
         } else if (R.id.log_tv == id) {
-            Logger.d(TAG, "click log");
+//            Logger.d(TAG, "click log");
+            mCatLogger.d("click log " + mClickCount);
+            mFileLogger.d("click log " + mClickCount);
+            mClickCount++;
         }
     }
 }

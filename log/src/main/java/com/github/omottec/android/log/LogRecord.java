@@ -11,7 +11,7 @@ import java.util.Date;
  * Created by qinbingbing on 11/22/16.
  */
 
-public class LogRecord {
+public class LogRecord implements Comparable {
     private String dateTime;
     private int pid;
     private int tid;
@@ -99,5 +99,16 @@ public class LogRecord {
 
     public boolean isEncrypted() {
         return encrypted;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        if (this == o) return 0;
+        LogRecord other = (LogRecord) o;
+        if (dateTime == other.dateTime) {
+            return other.dateTime.compareTo(dateTime);
+        } else {
+            return priority - other.priority;
+        }
     }
 }

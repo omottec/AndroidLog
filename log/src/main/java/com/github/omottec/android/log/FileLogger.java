@@ -7,6 +7,7 @@ import android.text.TextUtils;
 
 import com.github.omottec.android.log.toolbox.DefaultLogWriter;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -34,7 +35,8 @@ public class FileLogger extends AbstractLogger {
             mFileName = fileName;
         } else {
             fileName = new SimpleDateFormat("yyyyMMdd").format(new Date());
-            mFileName = encrypted ? 'c' + fileName : fileName;
+            mFileName = new File(mAppContext.getFilesDir(),
+                    encrypted ? 'c' + fileName : fileName).getAbsolutePath();
         }
     }
 

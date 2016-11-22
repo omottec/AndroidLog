@@ -21,7 +21,7 @@ public class DefaultLogWriter implements LogWriter {
         PrintWriter pw = null;
         FileLock lock = null;
         try {
-            FileOutputStream fos = new FileOutputStream(logRecord.getFileName());
+            FileOutputStream fos = new FileOutputStream(logRecord.getFileName(), true);
             pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(fos)));
             lock = fos.getChannel().lock();
             if (!logRecord.isEncrypted()) {
