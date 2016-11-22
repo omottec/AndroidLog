@@ -17,10 +17,10 @@ public abstract class AbstractLogger {
     private static final Pattern ANONYMOUS_CLASS = Pattern.compile("(\\$\\d+)+$");
     private static int sLevel = Integer.MAX_VALUE;
 
-    private String mName;
+    private String mTag;
 
-    AbstractLogger(String name) {
-        mName = name;
+    AbstractLogger(String tag) {
+        mTag = tag;
     }
 
     /** Log a verbose message with optional format args. */
@@ -194,7 +194,7 @@ public abstract class AbstractLogger {
     }
 
     protected String getTag() {
-        if (!TextUtils.isEmpty(mName)) return mName;
+        if (!TextUtils.isEmpty(mTag)) return mTag;
         // DO NOT switch this to Thread.getCurrentThread().getStackTrace(). The test will pass
         // because Robolectric runs them on the JVM but on Android the elements are different.
         StackTraceElement[] stackTrace = new Throwable().getStackTrace();
