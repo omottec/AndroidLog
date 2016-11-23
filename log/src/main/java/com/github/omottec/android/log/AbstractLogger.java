@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
 public abstract class AbstractLogger {
     private static final int CALL_STACK_INDEX = 3;
     private static final Pattern ANONYMOUS_CLASS = Pattern.compile("(\\$\\d+)+$");
-    private static int sLevel = Integer.MAX_VALUE;
+    private static int sLevel = Log.VERBOSE;
 
     private String mTag;
 

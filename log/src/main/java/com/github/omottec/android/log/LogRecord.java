@@ -1,11 +1,7 @@
 package com.github.omottec.android.log;
 
 
-import android.os.Process;
 import android.util.Log;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
  * Created by qinbingbing on 11/22/16.
@@ -19,10 +15,10 @@ public class LogRecord implements Comparable {
     private int priority;
     private String tag;
     private String msg;
-    private String fileName;
+    private String filePath;
     private boolean encrypted;
 
-    public LogRecord(String dateTime, int pid, int tid, String processName, int priority, String tag, String msg, String fileName, boolean encrypted) {
+    public LogRecord(String dateTime, int pid, int tid, String processName, int priority, String tag, String msg, String filePath, boolean encrypted) {
         this.dateTime = dateTime;
         this.pid = pid;
         this.tid = tid;
@@ -30,7 +26,7 @@ public class LogRecord implements Comparable {
         this.priority = priority;
         this.tag = tag;
         this.msg = msg;
-        this.fileName = fileName;
+        this.filePath = filePath;
         this.encrypted = encrypted;
     }
 
@@ -93,8 +89,8 @@ public class LogRecord implements Comparable {
         return msg;
     }
 
-    public String getFileName() {
-        return fileName;
+    public String getFilePath() {
+        return filePath;
     }
 
     public boolean isEncrypted() {

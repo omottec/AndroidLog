@@ -28,4 +28,24 @@
         android:text="log"
         android:gravity="center"
         android:background="#0000ff"/>
+
+    <LinearLayout
+        android:background="#ffff00"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+        <EditText
+            android:id="@+id/et"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:hint="input file name"/>
+        <Button
+            android:id="@+id/decrypt_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="decrypt"/>
+    </LinearLayout>
+
 </LinearLayout>

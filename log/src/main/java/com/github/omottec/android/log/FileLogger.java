@@ -24,18 +24,18 @@ public class FileLogger extends AbstractLogger {
     private SimpleDateFormat mLogDateTime = new SimpleDateFormat("MM-dd HH:mm:ss.SSS");
     private boolean mEncrypted = false;
     private Context mAppContext;
-    private String mFileName;
+    private String mFilePath;
 
 
     private FileLogger(Context context, String tag, String fileName, boolean encrypted) {
         super(tag);
         mAppContext = context.getApplicationContext();
         mEncrypted = encrypted;
-        if (!TextUtils.isEmpty(mFileName)) {
-            mFileName = fileName;
+        if (!TextUtils.isEmpty(fileName)) {
+            mFilePath = new File(mAppContext.getFilesDir(), fileName).getAbsolutePath();
         } else {
             fileName = new SimpleDateFormat("yyyyMMdd").format(new Date());
-            mFileName = new File(mAppContext.getFilesDir(),
+            mFilePath = new File(mAppContext.getFilesDir(),
                     encrypted ? 'c' + fileName : fileName).getAbsolutePath();
         }
     }
@@ -57,7 +57,7 @@ public class FileLogger extends AbstractLogger {
                 priority,
                 tag,
                 message,
-                mFileName,
+                mFilePath,
                 mEncrypted);
         sLogQueue.addLog(logRecord);
     }
